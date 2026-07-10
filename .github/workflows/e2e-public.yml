@@ -1,0 +1,22 @@
+name: E2E public probes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  public-probes:
+    name: Public no-secret probes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --release --bin gulf
+      - name: Run public e2e probes
+        run: |
+           python3 scripts/e2e_probe.py \
+             config/e2e/testnet.toml \
+             --gulf ./target/release/gulf

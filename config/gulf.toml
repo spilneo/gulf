@@ -1,0 +1,1501 @@
+[project]
+name = "gulf"
+rust_version = "1.96"
+edition = "2024"
+
+[developer]
+default_commission_bps = 20
+
+[developer.recipients]
+evm = "${env.GULF_EVM_FEE_RECIPIENT}"
+solana = "${env.GULF_SOLANA_FEE_RECIPIENT}"
+bitcoin = "${env.GULF_BITCOIN_FEE_RECIPIENT}"
+thorname = "${env.GULF_THORNAME_FEE_RECIPIENT}"
+
+[developer.b2b]
+enabled = true
+default_partner_fee_bps = 0
+max_partner_fee_bps = 100
+require_partner_recipient = false
+settlement = "provider_fee_when_supported_else_api_owner_settlement"
+
+[safety]
+max_commission_bps = 300
+require_live_quote_for_swap = true
+
+[server]
+default_listen = "127.0.0.1:8080"
+
+[[e2e.quote_probes]]
+name = "circle-standard-mainnet-base-to-arbitrum-fee"
+expected_provider = "circle-cctp-standard"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.quote_probes]]
+name = "circle-fast-mainnet-base-to-arbitrum-fee"
+expected_provider = "circle-cctp-fast-v2"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.quote_probes]]
+name = "across-mainnet-base-to-arbitrum-usdc"
+expected_provider = "across-swap-api"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_ACROSS_API_KEY", "GULF_ACROSS_INTEGRATOR_ID", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "debridge-mainnet-base-to-arbitrum-usdc"
+expected_provider = "debridge-dln"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "lifi-mainnet-base-to-arbitrum-usdc"
+expected_provider = "lifi"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.quote_probes]]
+name = "orbiter-mainnet-base-to-arbitrum-usdc"
+expected_provider = "orbiter"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.prepare_probes]]
+name = "across-mainnet-base-to-arbitrum-usdc-prepare"
+expected_provider = "across-swap-api"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_ACROSS_API_KEY", "GULF_ACROSS_INTEGRATOR_ID", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.prepare_probes]]
+name = "debridge-mainnet-base-to-arbitrum-usdc-approval-aware-prepare"
+expected_provider = "debridge-dln"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "mayan-mainnet-base-usdc-to-solana-usdc"
+expected_provider = "mayan-swift-v2"
+from_chain = "eip155:8453"
+to_chain = "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+recipient = "11111111111111111111111111111111"
+live = true
+env_required = ["GULF_MAYAN_API_KEY", "GULF_SOLANA_FEE_RECIPIENT"]
+
+[[e2e.prepare_probes]]
+name = "mayan-mainnet-base-usdc-to-solana-usdc-prepare"
+expected_provider = "mayan-swift-v2"
+from_chain = "eip155:8453"
+to_chain = "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+recipient = "11111111111111111111111111111111"
+live = true
+env_required = ["GULF_MAYAN_API_KEY", "GULF_SOLANA_FEE_RECIPIENT"]
+
+[[e2e.prepare_probes]]
+name = "lifi-mainnet-base-to-arbitrum-usdc-prepare"
+expected_provider = "lifi"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.prepare_probes]]
+name = "orbiter-mainnet-base-to-arbitrum-usdc-prepare"
+expected_provider = "orbiter"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "zero-x-mainnet-ethereum-usdc-to-weth-price"
+expected_provider = "zero-x-swap-api"
+from_chain = "eip155:1"
+to_chain = "eip155:1"
+from_token = "USDC"
+to_token = "ethereum-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_ZEROX_API_KEY", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.prepare_probes]]
+name = "zero-x-mainnet-ethereum-usdc-to-weth-prepare"
+expected_provider = "zero-x-swap-api"
+from_chain = "eip155:1"
+to_chain = "eip155:1"
+from_token = "USDC"
+to_token = "ethereum-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_ZEROX_API_KEY", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "openocean-mainnet-base-usdc-to-weth-quote"
+expected_provider = "openocean-v4"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "base-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.quote_probes]]
+name = "thorchain-mainnet-btc-to-eth-quote"
+expected_provider = "thorchain"
+from_chain = "bip122:000000000019d6689c085ae165831e93"
+to_chain = "eip155:1"
+from_token = "bitcoin-btc"
+to_token = "ethereum-eth"
+amount = "100000"
+sender = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"
+recipient = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.prepare_probes]]
+name = "thorchain-mainnet-btc-to-eth-prepare"
+expected_provider = "thorchain"
+from_chain = "bip122:000000000019d6689c085ae165831e93"
+to_chain = "eip155:1"
+from_token = "bitcoin-btc"
+to_token = "ethereum-eth"
+amount = "100000"
+sender = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"
+recipient = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.prepare_probes]]
+name = "openocean-mainnet-base-usdc-to-weth-prepare"
+expected_provider = "openocean-v4"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "base-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.quote_probes]]
+name = "odos-mainnet-base-usdc-to-weth-quote"
+expected_provider = "odos"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "base-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_ODOS_API_KEY"]
+
+[[e2e.prepare_probes]]
+name = "odos-mainnet-base-usdc-to-weth-prepare"
+expected_provider = "odos"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "base-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+env_required = ["GULF_ODOS_API_KEY"]
+
+[[e2e.quote_probes]]
+name = "velora-market-mainnet-base-usdc-to-weth-price"
+expected_provider = "velora-market"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "base-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.prepare_probes]]
+name = "velora-market-mainnet-base-usdc-to-weth-prepare"
+expected_provider = "velora-market"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "base-weth"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[routing]
+sort = ["total_configured_bps", "settlement_seconds", "provider_name"]
+require_chain_registry_match = false
+require_token_registry_match = false
+
+[[chains]]
+caip2_id = "eip155:1"
+display_name = "Ethereum"
+vm = "evm"
+aliases = ["ethereum", "ETH", "Ethereum Mainnet", "1"]
+numeric_chain_id = 1
+native_symbol = "ETH"
+provider_references = { circle = "0", circle_token_messenger_v2 = "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d", circle_message_transmitter_v2 = "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64", chainflip = "Ethereum", debridge = "1", mayan = "ethereum", rango = "ETH", rubic = "ETH", changenow = "eth", meson = "eth" }
+explorer_url = "https://etherscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_ETHEREUM_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://ethereum-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "ankr", url = "https://rpc.ankr.com/eth", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:42161"
+display_name = "Arbitrum"
+vm = "evm"
+aliases = ["arbitrum", "Arbitrum One", "ARB", "42161"]
+numeric_chain_id = 42161
+native_symbol = "ETH"
+provider_references = { circle = "3", chainflip = "Arbitrum", debridge = "42161", mayan = "arbitrum", rango = "ARBITRUM", rubic = "ARBITRUM", changenow = "arbitrum", meson = "arb", allbridge = "ARB" }
+explorer_url = "https://arbiscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_ARBITRUM_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://arbitrum-one-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "official", url = "https://arb1.arbitrum.io/rpc", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:43114"
+display_name = "Avalanche"
+vm = "evm"
+aliases = ["avalanche", "Avalanche C-Chain", "AVAX", "43114"]
+numeric_chain_id = 43114
+native_symbol = "AVAX"
+provider_references = { circle = "1", debridge = "43114", mayan = "avalanche", rango = "AVAX_CCHAIN", rubic = "AVALANCHE", changenow = "avalanche" }
+explorer_url = "https://snowtrace.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_AVALANCHE_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://avalanche-c-chain-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "official", url = "https://api.avax.network/ext/bc/C/rpc", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:8453"
+display_name = "Base"
+vm = "evm"
+aliases = ["base", "8453"]
+numeric_chain_id = 8453
+native_symbol = "ETH"
+provider_references = { circle = "6", circle_token_messenger_v2 = "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d", circle_message_transmitter_v2 = "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64", debridge = "8453", mayan = "base", rango = "BASE", rubic = "BASE", changenow = "base", meson = "base", allbridge = "BAS" }
+explorer_url = "https://basescan.org"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_BASE_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://base-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "official", url = "https://mainnet.base.org", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:10"
+display_name = "Optimism"
+vm = "evm"
+aliases = ["optimism", "OP Mainnet", "OP", "10"]
+numeric_chain_id = 10
+native_symbol = "ETH"
+provider_references = { circle = "2", debridge = "10", mayan = "optimism", rango = "OPTIMISM", rubic = "OPTIMISM", changenow = "optimism" }
+explorer_url = "https://optimistic.etherscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_OPTIMISM_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://optimism-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "official", url = "https://mainnet.optimism.io", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:137"
+display_name = "Polygon PoS"
+vm = "evm"
+aliases = ["polygon", "Polygon", "Matic", "137"]
+numeric_chain_id = 137
+native_symbol = "POL"
+provider_references = { circle = "7", debridge = "137", mayan = "polygon", rango = "POLYGON", rubic = "POLYGON", changenow = "polygon" }
+explorer_url = "https://polygonscan.com"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_POLYGON_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://polygon-bor-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "official", url = "https://polygon-rpc.com", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:56"
+display_name = "BNB Chain"
+vm = "evm"
+aliases = ["bnb", "BSC", "Binance Smart Chain", "56"]
+numeric_chain_id = 56
+native_symbol = "BNB"
+provider_references = { debridge = "56", mayan = "bsc", rango = "BSC", rubic = "BSC", changenow = "bsc" }
+explorer_url = "https://bscscan.com"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_BNB_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://bsc-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "official", url = "https://bsc-dataseed.binance.org", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:59144"
+display_name = "Linea"
+vm = "evm"
+aliases = ["linea", "59144"]
+numeric_chain_id = 59144
+native_symbol = "ETH"
+provider_references = { circle = "11", rubic = "LINEA" }
+explorer_url = "https://lineascan.build"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_LINEA_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "public", url = "https://rpc.linea.build", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:100"
+display_name = "Gnosis"
+vm = "evm"
+aliases = ["gnosis", "Gnosis Chain", "100"]
+numeric_chain_id = 100
+native_symbol = "xDAI"
+provider_references = {}
+explorer_url = "https://gnosisscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_GNOSIS_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://gnosis-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:324"
+display_name = "zkSync"
+vm = "evm"
+aliases = ["zksync", "zkSync Era", "324"]
+numeric_chain_id = 324
+native_symbol = "ETH"
+provider_references = {}
+explorer_url = "https://era.zksync.network"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_ZKSYNC_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "official", url = "https://mainnet.era.zksync.io", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:130"
+display_name = "Unichain"
+vm = "evm"
+aliases = ["unichain", "130"]
+numeric_chain_id = 130
+native_symbol = "ETH"
+provider_references = { circle = "10" }
+explorer_url = "https://uniscan.xyz"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_UNICHAIN_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "official", url = "https://mainnet.unichain.org", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:480"
+display_name = "World Chain"
+vm = "evm"
+aliases = ["worldchain", "World", "480"]
+numeric_chain_id = 480
+native_symbol = "ETH"
+provider_references = { circle = "14" }
+explorer_url = "https://worldscan.org"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_WORLDCHAIN_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "eip155:57073"
+display_name = "Ink"
+vm = "evm"
+aliases = ["ink", "57073"]
+numeric_chain_id = 57073
+native_symbol = "ETH"
+provider_references = { circle = "21" }
+explorer_url = "https://explorer.inkonchain.com"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_INK_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "eip155:5000"
+display_name = "Mantle"
+vm = "evm"
+aliases = ["mantle", "5000"]
+numeric_chain_id = 5000
+native_symbol = "MNT"
+provider_references = {}
+explorer_url = "https://mantlescan.xyz"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_MANTLE_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "public", url = "https://rpc.mantle.xyz", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:42220"
+display_name = "Celo"
+vm = "evm"
+aliases = ["celo", "42220"]
+numeric_chain_id = 42220
+native_symbol = "CELO"
+provider_references = {}
+explorer_url = "https://celoscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_CELO_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "forno", url = "https://forno.celo.org", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:146"
+display_name = "Sonic"
+vm = "evm"
+aliases = ["sonic", "146"]
+numeric_chain_id = 146
+native_symbol = "S"
+provider_references = { circle = "13" }
+explorer_url = "https://sonicscan.org"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_SONIC_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+display_name = "Solana"
+vm = "solana"
+aliases = ["solana", "SOL"]
+native_symbol = "SOL"
+provider_references = { circle = "5", chainflip = "Solana", debridge = "7565164", mayan = "solana", rango = "SOLANA", rubic = "SOLANA", changenow = "sol" }
+explorer_url = "https://solscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_SOLANA_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "official", url = "https://api.mainnet-beta.solana.com", priority = 20, timeout_ms = 6000 },
+]
+
+[[chains]]
+caip2_id = "tron:mainnet"
+display_name = "Tron"
+vm = "tron"
+aliases = ["tron", "TRX"]
+native_symbol = "TRX"
+provider_references = { debridge = "100000026", rubic = "TRON", changenow = "trx" }
+explorer_url = "https://tronscan.org"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_TRON_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "bip122:000000000019d6689c085ae165831e93"
+display_name = "Bitcoin"
+vm = "bitcoin"
+aliases = ["bitcoin", "BTC"]
+native_symbol = "BTC"
+provider_references = { chainflip = "Bitcoin", changenow = "btc" }
+explorer_url = "https://mempool.space"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_BITCOIN_RPC_URL", priority = 0, timeout_ms = 6000 },
+]
+
+[[chains]]
+caip2_id = "sui:mainnet"
+display_name = "Sui"
+vm = "move"
+aliases = ["sui", "SUI"]
+native_symbol = "SUI"
+explorer_url = "https://suiscan.xyz"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_SUI_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "official", url = "https://fullnode.mainnet.sui.io", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "aptos:mainnet"
+display_name = "Aptos"
+vm = "move"
+aliases = ["aptos", "APT"]
+native_symbol = "APT"
+provider_references = {}
+explorer_url = "https://aptoscan.com"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_APTOS_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "official", url = "https://fullnode.mainnet.aptoslabs.com/v1", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "cosmos:cosmoshub-4"
+display_name = "Cosmos Hub"
+vm = "cosmos"
+aliases = ["cosmos", "Cosmos", "ATOM"]
+native_symbol = "ATOM"
+provider_references = {}
+explorer_url = "https://www.mintscan.io/cosmos"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_COSMOS_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "cosmos:osmosis-1"
+display_name = "Osmosis"
+vm = "cosmos"
+aliases = ["osmosis", "OSMO"]
+native_symbol = "OSMO"
+provider_references = {}
+explorer_url = "https://www.mintscan.io/osmosis"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_OSMOSIS_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "near:mainnet"
+display_name = "NEAR"
+vm = "near"
+aliases = ["near", "NEAR Protocol"]
+native_symbol = "NEAR"
+provider_references = {}
+explorer_url = "https://nearblocks.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_NEAR_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "official", url = "https://rpc.mainnet.near.org", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "starknet:SN_MAIN"
+display_name = "Starknet"
+vm = "starknet"
+aliases = ["starknet", "STRK"]
+native_symbol = "STRK"
+provider_references = { circle = "25" }
+explorer_url = "https://starkscan.co"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_STARKNET_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "stellar:pubnet"
+display_name = "Stellar"
+vm = "stellar"
+aliases = ["stellar", "Soroban", "XLM"]
+native_symbol = "XLM"
+provider_references = {}
+explorer_url = "https://stellar.expert"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_STELLAR_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "bip122:12a765e31ffd4059bada1e25190f6e98"
+display_name = "Litecoin"
+vm = "utxo"
+aliases = ["litecoin", "LTC"]
+native_symbol = "LTC"
+provider_references = {}
+explorer_url = "https://blockchair.com/litecoin"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_LITECOIN_RPC_URL", priority = 0, timeout_ms = 6000 },
+]
+
+[[chains]]
+caip2_id = "cosmos:thorchain-mainnet-v1"
+display_name = "THORChain"
+vm = "cosmos"
+aliases = ["thorchain", "RUNE"]
+native_symbol = "RUNE"
+provider_references = {}
+explorer_url = "https://thorchain.net"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_THORCHAIN_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[chains]]
+caip2_id = "polkadot:91b171bb158e2d3848fa23a9f1c25182"
+display_name = "Polkadot"
+vm = "substrate"
+aliases = ["polkadot", "DOT"]
+native_symbol = "DOT"
+provider_references = {}
+explorer_url = "https://polkadot.subscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_POLKADOT_RPC_URL", priority = 0, timeout_ms = 4000 },
+]
+
+[[tokens]]
+id = "ethereum-usdc"
+chain_caip2_id = "eip155:1"
+symbol = "USDC"
+decimals = 6
+address = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+aliases = ["USDC.e"]
+provider_symbols = { thorchain = "ETH.USDC", chainflip = "USDC", mayan = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", rango = "USDC", "zero-x-swap-api" = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", rubic = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", changenow = "usdc", meson = "usdc" }
+
+[[tokens]]
+id = "arbitrum-usdc"
+chain_caip2_id = "eip155:42161"
+symbol = "USDC"
+decimals = 6
+address = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
+aliases = []
+provider_symbols = { chainflip = "USDC", "across-swap-api" = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", mayan = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", rango = "USDC", "zero-x-swap-api" = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", rubic = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", changenow = "usdc", meson = "usdc", allbridge = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831" }
+
+[[tokens]]
+id = "base-usdc"
+chain_caip2_id = "eip155:8453"
+symbol = "USDC"
+decimals = 6
+address = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+aliases = []
+provider_symbols = { "across-swap-api" = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", mayan = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", rango = "USDC", "zero-x-swap-api" = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", rubic = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", changenow = "usdc", meson = "usdc", allbridge = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" }
+
+[[tokens]]
+id = "optimism-usdc"
+chain_caip2_id = "eip155:10"
+symbol = "USDC"
+decimals = 6
+address = "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85"
+aliases = []
+provider_symbols = { mayan = "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85", rango = "USDC", rubic = "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85", changenow = "usdc" }
+
+[[tokens]]
+id = "polygon-usdc"
+chain_caip2_id = "eip155:137"
+symbol = "USDC"
+decimals = 6
+address = "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359"
+aliases = []
+provider_symbols = { mayan = "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359", rango = "USDC", rubic = "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359", changenow = "usdc" }
+
+[[tokens]]
+id = "solana-usdc"
+chain_caip2_id = "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+symbol = "USDC"
+decimals = 6
+address = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+aliases = []
+provider_symbols = { chainflip = "USDC", mayan = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", rango = "USDC", rubic = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", changenow = "usdc" }
+
+[[tokens]]
+id = "bitcoin-btc"
+chain_caip2_id = "bip122:000000000019d6689c085ae165831e93"
+symbol = "BTC"
+decimals = 8
+aliases = ["XBT"]
+provider_symbols = { thorchain = "BTC.BTC", chainflip = "BTC", changenow = "btc" }
+
+[[tokens]]
+id = "ethereum-eth"
+chain_caip2_id = "eip155:1"
+symbol = "ETH"
+decimals = 18
+address = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+aliases = ["WETH"]
+provider_symbols = { thorchain = "ETH.ETH", rubic = "0x0000000000000000000000000000000000000000", orbiter = "0x0000000000000000000000000000000000000000", changenow = "eth" }
+
+[[tokens]]
+id = "arbitrum-eth"
+chain_caip2_id = "eip155:42161"
+symbol = "ETH"
+decimals = 18
+address = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+aliases = []
+provider_symbols = { rubic = "0x0000000000000000000000000000000000000000", orbiter = "0x0000000000000000000000000000000000000000", changenow = "eth" }
+
+[[tokens]]
+id = "base-eth"
+chain_caip2_id = "eip155:8453"
+symbol = "ETH"
+decimals = 18
+address = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+aliases = []
+provider_symbols = { rubic = "0x0000000000000000000000000000000000000000", orbiter = "0x0000000000000000000000000000000000000000", changenow = "eth" }
+
+[[tokens]]
+id = "optimism-eth"
+chain_caip2_id = "eip155:10"
+symbol = "ETH"
+decimals = 18
+address = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+aliases = []
+provider_symbols = { rubic = "0x0000000000000000000000000000000000000000", orbiter = "0x0000000000000000000000000000000000000000", changenow = "eth" }
+
+[[tokens]]
+id = "ethereum-weth"
+chain_caip2_id = "eip155:1"
+symbol = "WETH"
+decimals = 18
+address = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+aliases = ["Wrapped Ether"]
+provider_symbols = { "zero-x-swap-api" = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", rubic = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2" }
+
+[[tokens]]
+id = "base-weth"
+chain_caip2_id = "eip155:8453"
+symbol = "WETH"
+decimals = 18
+address = "0x4200000000000000000000000000000000000006"
+aliases = ["Wrapped Ether"]
+provider_symbols = { "openocean-v4" = "0x4200000000000000000000000000000000000006", odos = "0x4200000000000000000000000000000000000006", "velora-market" = "0x4200000000000000000000000000000000000006", rubic = "0x4200000000000000000000000000000000000006" }
+
+[[providers]]
+id = "circle-cctp-standard"
+name = "Circle CCTP Standard"
+enabled = true
+service_type = "contract_only"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:1", "eip155:59144", "eip155:10", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "eip155:130"]
+docs = ["https://developers.circle.com/cctp/concepts/fees", "https://developers.circle.com/cctp/howtos/get-transfer-fee"]
+notes = "Standard CCTP has no protocol fee, but it has finality latency and no native affiliate field."
+fee = { unit = "bps", dynamic = true, estimated_bps = 0, settlement_seconds = 900, notes = "Standard transfer fee is documented as 0 bps; chain gas still applies." }
+commission = { supported = false, strategy = "wrapper_contract", default_bps = 0, max_bps = 0, notes = "Use an application wrapper before depositForBurn if monetization is required." }
+
+[providers.http]
+base_url = "https://iris-api.circle.com"
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/v2/burn/USDC/fees/${from_chain.provider.circle}/${to_chain.provider.circle}"
+response = { estimated_fee_bps = "1.minimumFee" }
+
+[[providers]]
+id = "openocean-v4"
+name = "OpenOcean V4"
+enabled = true
+service_type = "dex_aggregator"
+supported_chains = ["eip155:1", "eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:10", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "tron:mainnet"]
+docs = ["https://marketplace.quicknode.com/add-on/openocean-v4-swap-api", "https://blog.openocean.finance/openocean-api-3-0-the-most-efficient-api-tool-for-your-crypto-trading-dfafde8d8274"]
+notes = "Same-chain DEX aggregation fallback; bridge routes should prefer bridge-capable providers. The initial HTTP mapping uses gasPriceDecimals=1000000000 (1 gwei) because Gulf does not yet preflight OpenOcean gasPrice dynamically. Per OpenOcean docs: /swap uses 'account' as recipient/receiver and 'sender' as caller; when they are the same, self-recipient limitation applies."
+fee = { unit = "bps", dynamic = true, estimated_bps = 0, settlement_seconds = 20, notes = "No protocol fee advertised; route price impact and gas apply." }
+commission = { supported = true, strategy = "partner_referral", default_bps = 20, max_bps = 300, notes = "Partner/referral setup is handled by OpenOcean commercial/API configuration." }
+
+[providers.http]
+base_url = "https://open-api.openocean.finance"
+default_headers = { Accept = "application/json", "User-Agent" = "gulf/0.1" }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/v4/${from_chain.numeric_chain_id}/quote"
+query = { inTokenAddress = "${from_token.address}", outTokenAddress = "${to_token.address}", amountDecimals = "${amount.raw}", gasPriceDecimals = "1000000000", slippage = "0.5" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "data.outAmount", transaction_to = "data.to", transaction_data = "data.data", transaction_value = "data.value" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/v4/${from_chain.numeric_chain_id}/swap"
+query = { inTokenAddress = "${from_token.address}", outTokenAddress = "${to_token.address}", amountDecimals = "${amount.raw}", gasPriceDecimals = "1000000000", slippage = "0.5", account = "${recipient}", sender = "${sender}", referrer = "${developer.evm_recipient}" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "data.outAmount", transaction_to = "data.to", transaction_data = "data.data", transaction_value = "data.value", erc20_approval_spender = "data.to" }
+
+[[providers]]
+id = "odos"
+name = "Odos"
+enabled = true
+service_type = "dex_aggregator"
+supported_chains = ["eip155:1", "eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:10", "eip155:137"]
+docs = ["https://docs.odos.xyz/"]
+notes = "Same-chain multi-hop DEX aggregation; keep separate from cross-chain bridge routes."
+fee = { unit = "bps", dynamic = true, estimated_bps = 0, settlement_seconds = 20, notes = "No platform fee in common routing; gas and price impact apply." }
+commission = { supported = true, strategy = "partner_referral", default_bps = 20, max_bps = 300, notes = "Use Odos partner/referral setup where enabled for the integrator account." }
+
+[providers.http]
+base_url = "https://api.odos.xyz"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json", "x-api-key" = "${env.GULF_ODOS_API_KEY}" }
+prepare_flow = { steps = ["quote", "assemble"] }
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/sor/quote/v3"
+body_json = { chainId = "${from_chain.numeric_chain_id}", inputTokens = [{ tokenAddress = "${from_token.address}", amount = "${amount.raw}" }], outputTokens = [{ tokenAddress = "${to_token.address}", proportion = 1 }], slippageLimitPercent = 0.5, userAddr = "${sender}" }
+timeout_ms = 20000
+retry_attempts = 1
+response = { output_amount = "outAmounts.0", gas_fee_usd = "gasEstimateValue", transaction_to = "transaction.to", transaction_data = "transaction.data", transaction_value = "transaction.value" }
+
+[providers.http.requests.assemble]
+method = "POST"
+path = "/sor/assemble"
+body_json = { userAddr = "${sender}", pathId = "${step.quote.pathId}", simulate = true, receiver = "${recipient}" }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "result.outputTokens.0.amount", gas_fee_usd = "result.gasEstimateValue", transaction_to = "result.transaction.to", transaction_data = "result.transaction.data", transaction_value = "result.transaction.value", erc20_approval_spender = "result.transaction.to", erc20_approval_amount = "result.inputTokens.0.amount" }
+
+[[providers]]
+id = "socket-v3"
+name = "Socket Swap V3"
+enabled = true
+service_type = "meta_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:1", "eip155:10", "eip155:137", "eip155:324"]
+docs = ["https://docs.socket.tech/integrate/integration-guides/socket-api", "https://docs.socket.tech/integrate/migration-guide"]
+notes = "Socket Swap V3. Public config uses the no-secret public backend with shared rate limits; opt-in config uses the dedicated backend with GULF_SOCKET_API_KEY and GULF_SOCKET_AFFILIATE_ID."
+fee = { unit = "bps", dynamic = true, estimated_bps = 0, settlement_seconds = 60, notes = "Pass-through routing fees from underlying protocols." }
+commission = { supported = true, strategy = "fee_bps", default_bps = 20, max_bps = 1000, parameters = { feeBps = "${commission.bps}", feeTakerAddress = "${developer.evm_recipient}" } }
+
+[providers.http]
+base_url = "https://public-backend.socket.tech"
+default_headers = { Accept = "application/json" }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/v3/swap/quote"
+query = { userOps = "tx", originChainId = "${from_chain.numeric_chain_id}", destinationChainId = "${to_chain.numeric_chain_id}", inputToken = "${from_token.address}", outputToken = "${to_token.address}", inputAmount = "${amount.raw}", userAddress = "${sender}", receiverAddress = "${recipient}", slippage = "0.5" }
+timeout_ms = 20000
+retry_attempts = 1
+response = { output_amount = "result.routes.0.output.amount", estimated_fee_usd = "result.routes.0.gasFee.feeInUsd", transaction_to = "result.routes.0.txData.object.to", transaction_data = "result.routes.0.txData.object.data", transaction_value = "result.routes.0.txData.object.value", erc20_approval_spender = "result.routes.0.approval.spenderAddress", erc20_approval_amount = "result.routes.0.approval.amount", expires_at = "result.routes.0.expiresAt", status_id = "result.routes.0.quoteId", status_endpoint = "result.routes.0.statusCheck.endpoint" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/v3/swap/quote"
+query = { userOps = "tx", originChainId = "${from_chain.numeric_chain_id}", destinationChainId = "${to_chain.numeric_chain_id}", inputToken = "${from_token.address}", outputToken = "${to_token.address}", inputAmount = "${amount.raw}", userAddress = "${sender}", receiverAddress = "${recipient}", slippage = "0.5" }
+timeout_ms = 20000
+retry_attempts = 1
+response = { output_amount = "result.routes.0.output.amount", estimated_fee_usd = "result.routes.0.gasFee.feeInUsd", transaction_to = "result.routes.0.txData.object.to", transaction_data = "result.routes.0.txData.object.data", transaction_value = "result.routes.0.txData.object.value", erc20_approval_spender = "result.routes.0.approval.spenderAddress", erc20_approval_amount = "result.routes.0.approval.amount", expires_at = "result.routes.0.expiresAt", status_id = "result.routes.0.quoteId", status_endpoint = "result.routes.0.statusCheck.endpoint" }
+
+[[providers]]
+id = "circle-cctp-fast-v2"
+name = "Circle CCTP Fast V2"
+enabled = true
+service_type = "contract_only"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:57073", "eip155:59144", "eip155:10", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "starknet:SN_MAIN", "eip155:130", "eip155:480"]
+docs = ["https://developers.circle.com/cctp/concepts/fees", "https://developers.circle.com/cctp/howtos/get-transfer-fee"]
+notes = "Fast transfer fee varies by source chain. Always query Circle's fee endpoint and set maxFee with a buffer."
+fee = { unit = "bps", dynamic = true, estimated_bps = 1.3, settlement_seconds = 20, notes = "Documented fast fee range is 0-14 bps by route." }
+commission = { supported = false, strategy = "wrapper_contract", default_bps = 0, max_bps = 0, notes = "No native affiliate parameter." }
+
+[providers.http]
+base_url = "https://iris-api.circle.com"
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/v2/burn/USDC/fees/${from_chain.provider.circle}/${to_chain.provider.circle}"
+response = { estimated_fee_bps = "0.minimumFee" }
+
+[[providers]]
+id = "mayan-swift-v2"
+name = "Mayan Finance Swift V2"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:1", "eip155:10", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "sui:mainnet"]
+docs = ["https://docs.mayan.finance/architecture/swift-v2", "https://docs.mayan.finance/integration/referral"]
+notes = "Solana-centered intent bridge with Swift, MCTP/FastMCTP, and Wormhole route variants."
+fee = { unit = "bps", dynamic = true, estimated_bps = 3, settlement_seconds = 30, notes = "Swift v2 documents mayanBps around 3 bps plus relayer/gas." }
+commission = { supported = true, strategy = "referrer_bps", default_bps = 20, max_bps = 100, parameters = { referrer = "${developer.solana_recipient}", referrerBps = "${commission.bps}" } }
+
+[providers.http]
+base_url = "https://price-api.mayan.finance"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json", "x-api-key" = "${env.GULF_MAYAN_API_KEY}" }
+prepare_flow = { steps = ["quote", "build"] }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/v3/quote"
+query = { amountIn64 = "${amount.raw}", fromToken = "${from_token.provider.mayan}", fromChain = "${from_chain.provider.mayan}", toToken = "${to_token.provider.mayan}", toChain = "${to_chain.provider.mayan}", slippageBps = "50", swift = "true", mctp = "true", fastMctp = "true", wormhole = "true", gasDrop = "0", referrer = "${developer.solana_recipient}", referrerBps = "${commission.bps}", destinationAddress = "${recipient}" }
+timeout_ms = 20000
+retry_attempts = 1
+response = { output_amount = "quotes.0.expectedAmountOut", settlement_seconds = "quotes.0.etaSeconds" }
+
+[providers.http.requests.build]
+method = "POST"
+path = "https://tx-builder.mayan.finance/build"
+body_json = { quote = "${step.quote.quotes.0}", params = { swapperAddress = "${sender}", destinationAddress = "${recipient}", signerChainId = "${from_chain.numeric_chain_id}" } }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "steps.quote.quotes.0.expectedAmountOut", settlement_seconds = "steps.quote.quotes.0.etaSeconds", transaction_to = "transaction.transaction.to", transaction_data = "transaction.transaction.data", transaction_value = "transaction.transaction.value", serialized_transaction = "transaction.transaction", status_id = "transaction.orderHash" }
+
+[[providers]]
+id = "across-swap-api"
+name = "Across Swap API"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:100", "eip155:57073", "eip155:59144", "eip155:10", "eip155:137", "eip155:130", "eip155:480", "eip155:324"]
+docs = ["https://docs.across.to/api-reference", "https://docs.across.to/api-reference/swap/approval/get", "https://docs.across.to/introduction/swap-api"]
+notes = "Across appFee is decimal 0..1, not basis points. Gulf renders revenue.total_decimal for this provider."
+fee = { unit = "bps", dynamic = true, estimated_bps = 4, settlement_seconds = 15, notes = "Intent relay fees vary by route, gas, and liquidity." }
+commission = { supported = true, strategy = "app_fee_decimal", default_bps = 20, max_bps = 1000, parameters = { appFee = "${revenue.total_decimal}", appFeeRecipient = "${developer.evm_recipient}", integratorId = "${env.GULF_ACROSS_INTEGRATOR_ID}" } }
+
+[providers.http]
+base_url = "https://app.across.to/api"
+auth = { header = "Authorization", value = "Bearer ${env.GULF_ACROSS_API_KEY}" }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/swap/approval"
+query = { originChainId = "${from_chain.numeric_chain_id}", destinationChainId = "${to_chain.numeric_chain_id}", inputToken = "${from_token.address}", outputToken = "${to_token.address}", amount = "${amount}", tradeType = "exactInput", depositor = "${sender}", recipient = "${recipient}", appFee = "${revenue.total_decimal}", appFeeRecipient = "${developer.evm_recipient}", integratorId = "${env.GULF_ACROSS_INTEGRATOR_ID}" }
+response = { output_amount = "expectedOutputAmount", settlement_seconds = "expectedFillTime", transaction_to = "swapTx.to", transaction_data = "swapTx.data", transaction_value = "swapTx.value", approval_transaction_to = "approvalTxns.0.to", approval_transaction_data = "approvalTxns.0.data", approval_transaction_value = "approvalTxns.0.value", expires_at = "quoteExpiryTimestamp", status_id = "id" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/swap/approval"
+query = { originChainId = "${from_chain.numeric_chain_id}", destinationChainId = "${to_chain.numeric_chain_id}", inputToken = "${from_token.address}", outputToken = "${to_token.address}", amount = "${amount}", tradeType = "exactInput", depositor = "${sender}", recipient = "${recipient}", appFee = "${revenue.total_decimal}", appFeeRecipient = "${developer.evm_recipient}", integratorId = "${env.GULF_ACROSS_INTEGRATOR_ID}" }
+response = { output_amount = "expectedOutputAmount", settlement_seconds = "expectedFillTime", transaction_to = "swapTx.to", transaction_data = "swapTx.data", transaction_value = "swapTx.value", approval_transaction_to = "approvalTxns.0.to", approval_transaction_data = "approvalTxns.0.data", approval_transaction_value = "approvalTxns.0.value", expires_at = "quoteExpiryTimestamp", status_id = "id" }
+
+[[providers]]
+id = "debridge-dln"
+name = "deBridge DLN"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:1", "eip155:10", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "tron:mainnet"]
+docs = ["https://docs.debridge.com/dln-details/affiliates/affiliate-fees", "https://docs.debridge.com/api-reference/dln/this-endpoint-returns-the-data-for-a-transaction-to-place-a-cross-chain-dln-order", "https://docs.debridge.com/dln-details/overview/fees-supported-chains"]
+notes = "AffiliateFeePercent is a percentage value; 0.1 means 0.1%, not 0.1 bps."
+fee = { unit = "bps", dynamic = true, estimated_bps = 4, flat_usd = 0.50, settlement_seconds = 30, notes = "Docs describe variable affiliate-capable orders plus protocol and chain fees." }
+commission = { supported = true, strategy = "affiliate_percent", default_bps = 20, max_bps = 1000, parameters = { affiliateFeePercent = "${commission.percent}", affiliateFeeRecipient = "${developer.evm_recipient}" } }
+
+[providers.http]
+base_url = "https://dln.debridge.finance/v1.0"
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/dln/order/create-tx"
+query = { srcChainId = "${from_chain.provider.debridge}", srcChainTokenIn = "${from_token.address}", srcChainTokenInAmount = "${amount}", dstChainId = "${to_chain.provider.debridge}", dstChainTokenOut = "${to_token.address}", dstChainTokenOutRecipient = "${recipient}", senderAddress = "${sender}", dstChainTokenOutAmount = "auto", affiliateFeePercent = "${commission.percent}", affiliateFeeRecipient = "${developer.evm_recipient}" }
+response = { output_amount = "estimation.dstChainTokenOut.amount", estimated_fee_usd = "protocolFeeApproximateUsdValue", transaction_to = "tx.to", transaction_data = "tx.data", transaction_value = "tx.value", erc20_approval_spender = "tx.allowanceTarget", erc20_approval_amount = "tx.allowanceValue", error = "errorMessage", status_endpoint = "https://app.debridge.finance/order" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/dln/order/create-tx"
+query = { srcChainId = "${from_chain.provider.debridge}", srcChainTokenIn = "${from_token.address}", srcChainTokenInAmount = "${amount}", dstChainId = "${to_chain.provider.debridge}", dstChainTokenOut = "${to_token.address}", dstChainTokenOutRecipient = "${recipient}", senderAddress = "${sender}", dstChainTokenOutAmount = "auto", affiliateFeePercent = "${commission.percent}", affiliateFeeRecipient = "${developer.evm_recipient}" }
+response = { output_amount = "estimation.dstChainTokenOut.amount", estimated_fee_usd = "protocolFeeApproximateUsdValue", transaction_to = "tx.to", transaction_data = "tx.data", transaction_value = "tx.value", erc20_approval_spender = "tx.allowanceTarget", erc20_approval_amount = "tx.allowanceValue", error = "errorMessage", status_endpoint = "https://app.debridge.finance/order" }
+
+[[providers]]
+id = "thorchain"
+name = "THORChain"
+enabled = true
+service_type = "native_swap"
+supported_chains = ["eip155:43114", "bip122:000000000019d6689c085ae165831e93", "eip155:56", "cosmos:cosmoshub-4", "eip155:1", "bip122:12a765e31ffd4059bada1e25190f6e98", "cosmos:thorchain-mainnet-v1"]
+docs = ["https://dev.thorchain.org/affiliate-guide/affiliate-fee-guide.html", "https://dev.thorchain.org/swap-guide/quickstart-guide.html", "https://dev.thorchain.org/swap-guide/fees-and-wait-times.html"]
+notes = "Native L1 swaps are memo-driven. Multiple affiliates are supported, but memo length matters on Bitcoin."
+fee = { unit = "bps", dynamic = true, estimated_bps = 5, settlement_seconds = 600, notes = "Slip fee, inbound gas, outbound fee, and optional affiliate fee." }
+commission = { supported = true, strategy = "memo_affiliate_bps", default_bps = 20, max_bps = 10000, parameters = { affiliate = "${developer.thorname_recipient}", affiliate_bps = "${commission.bps}" } }
+
+[providers.http]
+base_url = "https://gateway.liquify.com/chain/thorchain_api"
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/thorchain/quote/swap"
+query = { from_asset = "${from_token.provider.thorchain}", to_asset = "${to_token.provider.thorchain}", amount = "${amount.raw}", destination = "${recipient}" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "expected_amount_out", estimated_fee_bps = "fees.total_bps" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/thorchain/quote/swap"
+query = { from_asset = "${from_token.provider.thorchain}", to_asset = "${to_token.provider.thorchain}", amount = "${amount.raw}", destination = "${recipient}" }
+timeout_ms = 15000
+retry_attempts = 1
+
+[[providers]]
+id = "chainflip-broker"
+name = "Chainflip Broker API"
+enabled = true
+service_type = "native_swap"
+supported_chains = ["eip155:42161", "bip122:000000000019d6689c085ae165831e93", "eip155:1", "polkadot:91b171bb158e2d3848fa23a9f1c25182", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "tron:mainnet"]
+docs = ["https://docs.chainflip.io/brokers/broker-api/requests", "https://docs.chainflip.io/brokers/vault-swaps-api/encoding-reference"]
+notes = "Requires a registered broker account and FLIP state-chain fees for opening channels."
+fee = { unit = "bps", dynamic = true, estimated_bps = 5, settlement_seconds = 180, notes = "Liquidity fee and outbound network gas vary by asset and route." }
+commission = { supported = true, strategy = "broker_commission_bps", default_bps = 20, max_bps = 1000, parameters = { broker_commission = "${commission.bps}" } }
+
+[providers.http]
+base_url = "${env.GULF_CHAINFLIP_BROKER_API_URL}"
+default_headers = { "x-api-key" = "${env.GULF_CHAINFLIP_BROKER_API_KEY}" }
+
+[providers.http.requests.prepare]
+method = "POST"
+path = ""
+body_json = { jsonrpc = "2.0", method = "broker_request_swap_deposit_address", params = [{ chain = "${from_chain.provider.chainflip}", asset = "${from_token.provider.chainflip}" }, { chain = "${to_chain.provider.chainflip}", asset = "${to_token.provider.chainflip}" }, "${recipient}", "${commission.bps}"], id = 1 }
+timeout_ms = 15000
+retry_attempts = 1
+
+[[providers]]
+id = "squid-router"
+name = "Squid Router"
+enabled = true
+service_type = "meta_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "cosmos:cosmoshub-4", "eip155:1", "eip155:10", "eip155:137"]
+docs = ["https://docs.squidrouter.com/api-and-sdk-integration/key-concepts/collect-fees"]
+notes = "Axelar-based routing. Integrator fee sharing requires Squid approval."
+fee = { unit = "bps", dynamic = true, estimated_bps = 10, settlement_seconds = 180, notes = "Platform/integrator fees plus Axelar gas and route costs." }
+commission = { supported = true, strategy = "collect_fees", default_bps = 20, max_bps = 10000, parameters = { "collectFees.integratorAddress" = "${developer.evm_recipient}", "collectFees.fee" = "${commission.bps}" } }
+
+[providers.http]
+base_url = "https://v2.api.squidrouter.com/v2"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json", "x-integrator-id" = "${env.GULF_SQUID_INTEGRATOR_ID}" }
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/route"
+body_json = { fromAddress = "${sender}", fromChain = "${from_chain.numeric_chain_id_str}", fromToken = "${from_token.address}", fromAmount = "${amount.raw}", toChain = "${to_chain.numeric_chain_id_str}", toToken = "${to_token.address}", toAddress = "${recipient}", slippage = 0.5, quoteOnly = true }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "route.estimate.toAmount", settlement_seconds = "route.estimate.estimatedRouteDuration", estimated_fee_usd = "route.estimate.feeCosts.0.amountUsd", status_id = "route.quoteId" }
+
+[providers.http.requests.prepare]
+method = "POST"
+path = "/route"
+body_json = { fromAddress = "${sender}", fromChain = "${from_chain.numeric_chain_id_str}", fromToken = "${from_token.address}", fromAmount = "${amount.raw}", toChain = "${to_chain.numeric_chain_id_str}", toToken = "${to_token.address}", toAddress = "${recipient}", slippage = 0.5, quoteOnly = false }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "route.estimate.toAmount", settlement_seconds = "route.estimate.estimatedRouteDuration", estimated_fee_usd = "route.estimate.feeCosts.0.amountUsd", transaction_to = "route.transactionRequest.target", transaction_data = "route.transactionRequest.data", transaction_value = "route.transactionRequest.value", status_id = "route.quoteId" }
+
+[[providers]]
+id = "rango-main-api"
+name = "Rango Exchange Main API"
+enabled = true
+service_type = "meta_aggregator"
+supported_chains = ["aptos:mainnet", "eip155:42161", "eip155:8453", "bip122:000000000019d6689c085ae165831e93", "eip155:56", "cosmos:cosmoshub-4", "eip155:1", "near:mainnet", "eip155:10", "cosmos:osmosis-1", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "starknet:SN_MAIN", "sui:mainnet", "tron:mainnet"]
+docs = ["https://docs.rango.exchange/technical/monetization", "https://docs.rango.exchange/api-integration/main-api-multi-step/monetization", "https://docs.rango.exchange/technical/fee-structure"]
+notes = "Long-tail route fallback. Rango docs state a 15 bps Rango share alongside API/widget affiliate settings."
+fee = { unit = "bps", dynamic = true, estimated_bps = 15, settlement_seconds = 180, notes = "Aggregator share, underlying swapper fee, gas, and affiliate fee may all apply." }
+commission = { supported = true, strategy = "affiliate_percent", default_bps = 20, max_bps = 300, parameters = { affiliatePercent = "${commission.percent}", affiliateWallets = "${developer.evm_recipient}" } }
+
+[providers.http]
+base_url = "https://api.rango.exchange"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json" }
+auth = { query = { apiKey = "${env.GULF_RANGO_API_KEY}" } }
+prepare_flow = { steps = ["route", "tx"] }
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/routing/best"
+body_json = { from = { blockchain = "${from_chain.provider.rango}", symbol = "${from_token.provider.rango}", address = "${from_token.address}" }, to = { blockchain = "${to_chain.provider.rango}", symbol = "${to_token.provider.rango}", address = "${to_token.address}" }, amount = "${amount.decimal}", selectedWallets = { ETH = "${sender}", ARBITRUM = "${recipient}", BASE = "${recipient}", POLYGON = "${recipient}", BSC = "${recipient}", SOLANA = "${recipient}" }, destination = "${recipient}", checkPrerequisites = false, slippage = "0.5", affiliatePercent = "${commission.percent}", affiliateWallets = { ETH = "${developer.evm_recipient}", ARBITRUM = "${developer.evm_recipient}", BASE = "${developer.evm_recipient}", POLYGON = "${developer.evm_recipient}", BSC = "${developer.evm_recipient}" }, transactionTypes = ["EVM", "SOLANA"], enableCentralizedSwappers = false }
+timeout_ms = 40000
+retry_attempts = 1
+response = { output_amount = "result.outputAmount", settlement_seconds = "result.swaps.0.estimatedTimeInSeconds", error = "error", status_id = "requestId" }
+
+[providers.http.requests.route]
+method = "POST"
+path = "/routing/best"
+body_json = { from = { blockchain = "${from_chain.provider.rango}", symbol = "${from_token.provider.rango}", address = "${from_token.address}" }, to = { blockchain = "${to_chain.provider.rango}", symbol = "${to_token.provider.rango}", address = "${to_token.address}" }, amount = "${amount.decimal}", selectedWallets = { ETH = "${sender}", ARBITRUM = "${recipient}", BASE = "${recipient}", POLYGON = "${recipient}", BSC = "${recipient}", SOLANA = "${recipient}" }, destination = "${recipient}", checkPrerequisites = true, slippage = "0.5", affiliatePercent = "${commission.percent}", affiliateWallets = { ETH = "${developer.evm_recipient}", ARBITRUM = "${developer.evm_recipient}", BASE = "${developer.evm_recipient}", POLYGON = "${developer.evm_recipient}", BSC = "${developer.evm_recipient}" }, transactionTypes = ["EVM", "SOLANA"], enableCentralizedSwappers = false }
+timeout_ms = 50000
+retry_attempts = 1
+response = { output_amount = "result.outputAmount", error = "error", status_id = "requestId" }
+
+[providers.http.requests.tx]
+method = "POST"
+path = "/tx/create"
+body_json = { requestId = "${step.route.requestId}", step = 1, userSettings = { slippage = "0.5", infiniteApprove = false }, validations = { balance = false, fee = false, approve = false } }
+timeout_ms = 30000
+retry_attempts = 1
+response = { execution_kind = "multi_step", output_amount = "steps.route.result.outputAmount", transaction_to = "result.transaction.to", transaction_data = "result.transaction.data", transaction_value = "result.transaction.value", status_id = "steps.route.requestId", error = "result.error" }
+
+[[providers]]
+id = "zero-x-swap-api"
+name = "0x Swap API"
+enabled = true
+service_type = "dex_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:1", "eip155:10", "eip155:137"]
+docs = ["https://docs.0x.org/evm/0x-swap-api/guides/monetize-your-app-using-swap", "https://docs.0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api"]
+notes = "Single-chain DEX aggregator; useful before/after bridge legs."
+fee = { unit = "bps", dynamic = true, estimated_bps = 15, settlement_seconds = 20, notes = "Plan and token-pair dependent; the quote response returns integrator fee details." }
+commission = { supported = true, strategy = "swap_fee_bps", default_bps = 20, max_bps = 1000, parameters = { swapFeeRecipient = "${developer.evm_recipient}", swapFeeBps = "${commission.bps}", swapFeeToken = "${from_token.address}" } }
+
+[providers.http]
+base_url = "https://api.0x.org"
+auth = { headers = { "0x-api-key" = "${env.GULF_ZEROX_API_KEY}", "0x-version" = "v2" } }
+default_headers = { Accept = "application/json" }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/swap/allowance-holder/price"
+query = { chainId = "${from_chain.numeric_chain_id}", sellToken = "${from_token.address}", buyToken = "${to_token.address}", sellAmount = "${amount}", taker = "${sender}", recipient = "${recipient}", swapFeeRecipient = "${developer.evm_recipient}", swapFeeBps = "${commission.bps}", swapFeeToken = "${from_token.address}" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "buyAmount", gas_fee_usd = "totalNetworkFee" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/swap/allowance-holder/quote"
+query = { chainId = "${from_chain.numeric_chain_id}", sellToken = "${from_token.address}", buyToken = "${to_token.address}", sellAmount = "${amount}", taker = "${sender}", recipient = "${recipient}", swapFeeRecipient = "${developer.evm_recipient}", swapFeeBps = "${commission.bps}", swapFeeToken = "${from_token.address}" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "buyAmount", gas_fee_usd = "totalNetworkFee", transaction_to = "transaction.to", transaction_data = "transaction.data", transaction_value = "transaction.value", erc20_approval_spender = "issues.allowance.spender", erc20_approval_amount = "sellAmount" }
+
+[[providers]]
+id = "symbiosis-api"
+name = "Symbiosis API"
+enabled = true
+service_type = "meta_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "bip122:000000000019d6689c085ae165831e93", "eip155:56", "eip155:1", "eip155:10", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "tron:mainnet"]
+docs = ["https://docs.symbiosis.finance/developer-tools/symbiosis-api", "https://docs.symbiosis.finance/main-concepts/symbiosis-and-fees"]
+notes = "Uses S-chain/MPC relayers and partner fee collector contracts."
+fee = { unit = "dynamic", dynamic = true, estimated_bps = 20, settlement_seconds = 180, notes = "Gas and routing fees are quote-dependent." }
+commission = { supported = true, strategy = "partner_fee_collector", default_bps = 20, max_bps = 300, notes = "Configure partner fee collector contracts per chain." }
+
+[providers.http]
+base_url = "https://api.symbiosis.finance/crosschain"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json", partner = "gulf" }
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/v2/quote"
+body_json = { tokenAmountIn = { chainId = "${from_chain.numeric_chain_id}", address = "${from_token.address}", symbol = "${from_token.symbol}", decimals = "${from_token.decimals}", amount = "${amount.raw}" }, tokenOut = { chainId = "${to_chain.numeric_chain_id}", address = "${to_token.address}", symbol = "${to_token.symbol}", decimals = "${to_token.decimals}" }, from = "${sender}", to = "${recipient}", slippage = 50 }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "tokenAmountOut.amount", settlement_seconds = "estimatedTime", estimated_fee_usd = "fees.0.value.priceUsd", transaction_to = "tx.to", transaction_data = "tx.data", transaction_value = "tx.value", erc20_approval_spender = "approveTo", erc20_approval_amount = "tokenAmountIn.amount", status_id = "kind" }
+
+[providers.http.requests.prepare]
+method = "POST"
+path = "/v2/quote"
+body_json = { tokenAmountIn = { chainId = "${from_chain.numeric_chain_id}", address = "${from_token.address}", symbol = "${from_token.symbol}", decimals = "${from_token.decimals}", amount = "${amount.raw}" }, tokenOut = { chainId = "${to_chain.numeric_chain_id}", address = "${to_token.address}", symbol = "${to_token.symbol}", decimals = "${to_token.decimals}" }, from = "${sender}", to = "${recipient}", slippage = 50 }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "tokenAmountOut.amount", settlement_seconds = "estimatedTime", estimated_fee_usd = "fees.0.value.priceUsd", transaction_to = "tx.to", transaction_data = "tx.data", transaction_value = "tx.value", erc20_approval_spender = "approveTo", erc20_approval_amount = "tokenAmountIn.amount", status_id = "kind" }
+
+[[providers]]
+id = "lifi"
+name = "LI.FI"
+enabled = true
+service_type = "meta_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:1", "eip155:10", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"]
+docs = ["https://docs.li.fi/introduction/integrating-lifi/monetizing-integration", "https://docs.li.fi/faqs/fees-monetization"]
+notes = "LI.FI docs now describe a 0.25% service fee and configurable integrator fee."
+fee = { unit = "bps", dynamic = true, estimated_bps = 25, settlement_seconds = 180, notes = "Service fee plus underlying route fees; discounts may apply." }
+commission = { supported = true, strategy = "fee_decimal", default_bps = 0, max_bps = 300, parameters = { integrator = "gulf", fee = "${commission.decimal}" }, notes = "Set a non-zero default_bps only after configuring fee collection in the LI.FI portal." }
+
+[providers.http]
+base_url = "https://li.quest"
+default_headers = { Accept = "application/json", "User-Agent" = "gulf/0.1", "x-lifi-api-key" = "${env.GULF_LIFI_API_KEY}" }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/v1/quote"
+query = { fromChain = "${from_chain.numeric_chain_id}", toChain = "${to_chain.numeric_chain_id}", fromToken = "${from_token.address}", toToken = "${to_token.address}", fromAmount = "${amount}", fromAddress = "${sender}", toAddress = "${recipient}", integrator = "gulf", fee = "${commission.decimal}", slippage = "0.005" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "estimate.toAmount", gas_fee_usd = "estimate.gasCosts.0.amountUSD", settlement_seconds = "estimate.executionDuration", transaction_to = "transactionRequest.to", transaction_data = "transactionRequest.data", transaction_value = "transactionRequest.value", erc20_approval_spender = "estimate.approvalAddress", erc20_approval_amount = "estimate.fromAmount" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/v1/quote"
+query = { fromChain = "${from_chain.numeric_chain_id}", toChain = "${to_chain.numeric_chain_id}", fromToken = "${from_token.address}", toToken = "${to_token.address}", fromAmount = "${amount}", fromAddress = "${sender}", toAddress = "${recipient}", integrator = "gulf", fee = "${commission.decimal}", slippage = "0.005" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "estimate.toAmount", gas_fee_usd = "estimate.gasCosts.0.amountUSD", settlement_seconds = "estimate.executionDuration", transaction_to = "transactionRequest.to", transaction_data = "transactionRequest.data", transaction_value = "transactionRequest.value", erc20_approval_spender = "estimate.approvalAddress", erc20_approval_amount = "estimate.fromAmount" }
+
+[[providers]]
+id = "velora-market"
+name = "Velora Market"
+enabled = true
+service_type = "dex_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "eip155:56", "eip155:1", "eip155:10", "eip155:137"]
+docs = ["https://developers.velora.xyz/api/velora-api/velora-market-api/master/api-v6.2"]
+notes = "Same-chain DEX aggregator fallback using the Velora Market price -> transaction flow."
+fee = { unit = "dynamic", dynamic = true, estimated_bps = 30, settlement_seconds = 20, notes = "Integrator economics depend on partner setup and positive slippage model." }
+commission = { supported = true, strategy = "partner_referral", default_bps = 20, max_bps = 300, parameters = { partner = "gulf", partnerFeeBps = "${commission.bps}" } }
+
+[providers.http]
+base_url = "https://api.velora.xyz"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json" }
+prepare_flow = { steps = ["price", "build"] }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/prices"
+query = { srcToken = "${from_token.address}", srcDecimals = "${from_token.decimals}", destToken = "${to_token.address}", destDecimals = "${to_token.decimals}", amount = "${amount.raw}", side = "SELL", network = "${from_chain.numeric_chain_id}", userAddress = "${sender}", partner = "gulf", partnerFeeBps = "${commission.bps}", version = "6.2" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "priceRoute.destAmount", gas_fee_usd = "priceRoute.gasCostUSD" }
+
+[providers.http.requests.price]
+method = "GET"
+path = "/prices"
+query = { srcToken = "${from_token.address}", srcDecimals = "${from_token.decimals}", destToken = "${to_token.address}", destDecimals = "${to_token.decimals}", amount = "${amount.raw}", side = "SELL", network = "${from_chain.numeric_chain_id}", userAddress = "${sender}", partner = "gulf", partnerFeeBps = "${commission.bps}", version = "6.2" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "priceRoute.destAmount", gas_fee_usd = "priceRoute.gasCostUSD" }
+
+[providers.http.requests.build]
+method = "POST"
+path = "/transactions/${from_chain.numeric_chain_id}"
+body_json = { priceRoute = "${step.price.priceRoute}", srcToken = "${from_token.address}", destToken = "${to_token.address}", srcAmount = "${amount.raw}", userAddress = "${sender}", receiver = "${recipient}", slippage = 50, partner = "gulf", partnerFeeBps = "${commission.bps}", ignoreChecks = true, ignoreGasEstimate = true }
+timeout_ms = 20000
+retry_attempts = 1
+response = { transaction_to = "result.to", transaction_data = "result.data", transaction_value = "result.value", erc20_approval_spender = "steps.price.priceRoute.tokenTransferProxy", erc20_approval_amount = "steps.price.priceRoute.srcAmount" }
+
+[[providers]]
+id = "changenow"
+name = "ChangeNOW"
+enabled = true
+service_type = "meta_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "bip122:000000000019d6689c085ae165831e93", "eip155:56", "eip155:1", "eip155:10", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "tron:mainnet"]
+docs = ["https://changenow.io/blog/best-crypto-bridges", "https://documenter.getpostman.com/view/8180765/SVfTPnM8"]
+notes = "Centralized exchange-style API fallback; use compliance screening before enabling production routes. Gated on GULF_CHANGENOW_ENABLED=true and non-empty GULF_CHANGENOW_API_KEY; prepare returns centralized_deposit with exchange id/deposit address/expiry."
+fee = { unit = "bps", dynamic = true, estimated_bps = 40, settlement_seconds = 900, notes = "Exchange spread is baked into fixed/floating rates." }
+commission = { supported = true, strategy = "partner_revenue_share", default_bps = 20, max_bps = 300 }
+
+[providers.http]
+base_url = "https://api.changenow.io/v2"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json" }
+auth = { headers = { "x-changenow-api-key" = "${env.GULF_CHANGENOW_API_KEY}" } }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/exchange/estimated-amount"
+query = { fromCurrency = "${from_token.provider.changenow}", toCurrency = "${to_token.provider.changenow}", fromNetwork = "${from_chain.provider.changenow}", toNetwork = "${to_chain.provider.changenow}", fromAmount = "${amount.decimal}" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "toAmount" }
+
+[providers.http.requests.prepare]
+method = "POST"
+path = "/exchange"
+body_json = { fromCurrency = "${from_token.provider.changenow}", toCurrency = "${to_token.provider.changenow}", fromNetwork = "${from_chain.provider.changenow}", toNetwork = "${to_chain.provider.changenow}", fromAmount = "${amount.decimal}", address = "${recipient}", refundAddress = "${sender}", flow = "standard" }
+timeout_ms = 15000
+retry_attempts = 1
+response = { execution_kind = "centralized_deposit", output_amount = "expectedAmount", deposit_address = "payinAddress", memo = "payinExtraId", expires_at = "validUntil", status_id = "id" }
+
+[[providers]]
+id = "rubic"
+name = "Rubic"
+enabled = true
+service_type = "meta_aggregator"
+supported_chains = ["eip155:42161", "eip155:43114", "eip155:8453", "bip122:000000000019d6689c085ae165831e93", "eip155:56", "eip155:1", "eip155:10", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", "tron:mainnet"]
+supported_tokens = ["ethereum-usdc", "arbitrum-usdc", "base-usdc", "optimism-usdc", "polygon-usdc", "solana-usdc", "ethereum-eth", "arbitrum-eth", "base-eth", "optimism-eth", "ethereum-weth", "base-weth"]
+docs = ["https://docs.rubic.exchange/"]
+notes = "Long-tail bridge/swap aggregation fallback. Prepare requires a valid trade id; Rubic /api/routes/swap requires a pre-existing trade id that must be created separately. /api/routes/quoteBest returns a route id but does not persist trades, so the two-step quoteBest -> swap flow fails with 'trade not found or expired'. Prepare is gated on an API plan that supports trade persistence."
+fee = { unit = "dynamic", dynamic = true, estimated_bps = 40, settlement_seconds = 300, notes = "Dynamic pass-through route fees." }
+commission = { supported = true, strategy = "referrer_or_integrator", default_bps = 20, max_bps = 300, parameters = { referrer = "gulf", integratorAddress = "${developer.evm_recipient}" } }
+
+[providers.http]
+base_url = "https://api-v2.rubic.exchange"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json", "x-api-key" = "${env.GULF_RUBIC_API_KEY}" }
+prepare_flow = { steps = ["quote", "swap"] }
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/api/routes/quoteBest"
+body_json = { srcTokenAddress = "${from_token.provider.rubic}", srcTokenAmount = "${amount.decimal}", srcTokenBlockchain = "${from_chain.provider.rubic}", dstTokenAddress = "${to_token.provider.rubic}", dstTokenBlockchain = "${to_chain.provider.rubic}", fromAddress = "${sender}", receiver = "${recipient}", referrer = "gulf", integratorAddress = "${developer.evm_recipient}", slippage = 0.5, depositTradeParams = "all", useDepositTradeIfAvailable = true }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "estimate.destinationTokenAmount", estimated_fee_usd = "fees.rubicProxy.fixedFee.amount", error = "error.reason" }
+
+[providers.http.requests.swap]
+method = "POST"
+path = "/api/routes/swap"
+body_json = { srcTokenAddress = "${from_token.provider.rubic}", srcTokenAmount = "${amount.decimal}", srcTokenBlockchain = "${from_chain.provider.rubic}", dstTokenAddress = "${to_token.provider.rubic}", dstTokenBlockchain = "${to_chain.provider.rubic}", id = "${step.quote.id}", fromAddress = "${sender}", receiver = "${recipient}", referrer = "gulf", integratorAddress = "${developer.evm_recipient}", slippage = 0.5, depositTradeParams = "all", useDepositTradeIfAvailable = true }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "estimate.destinationTokenAmount", estimated_fee_usd = "fees.rubicProxy.fixedFee.amount", transaction_to = "transaction.to", transaction_data = "transaction.data", transaction_value = "transaction.value", erc20_approval_spender = "transaction.approvalAddress", erc20_approval_amount = "transaction.toAmount", deposit_address = "transaction.depositAddress", memo = "transaction.extraFields.memo", expires_at = "transaction.extraFields.expiration", status_id = "transaction.exchangeId", error = "error.reason" }
+
+[[providers]]
+id = "orbiter"
+name = "Orbiter Finance"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:59144", "eip155:10", "eip155:137", "starknet:SN_MAIN", "eip155:324"]
+supported_tokens = ["ethereum-usdc", "arbitrum-usdc", "base-usdc", "optimism-usdc", "polygon-usdc"]
+docs = ["https://docs.orbiter.finance/"]
+notes = "L2-focused maker bridge. Gulf probes only stablecoin routes; prior ETH probes were flaky/502 and are not advertised as executable."
+fee = { unit = "dynamic", dynamic = true, estimated_bps = 50, settlement_seconds = 120, notes = "Maker fee and destination gas are route-dependent." }
+commission = { supported = true, strategy = "maker_or_partner_markup", default_bps = 20, max_bps = 300 }
+
+[providers.http]
+base_url = "https://openapi.orbiter.finance"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json", "x-api-key" = "${env.GULF_ORBITER_API_KEY}" }
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/quote"
+body_json = { sourceChainId = "${from_chain.numeric_chain_id_str}", destChainId = "${to_chain.numeric_chain_id_str}", sourceToken = "${from_token.address}", destToken = "${to_token.address}", amount = "${amount.raw}", userAddress = "${sender}", targetRecipient = "${recipient}", slippage = 0.005, feeConfig = { feeRecipient = "${developer.evm_recipient}", feePercent = "${commission.percent}" } }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "result.details.destTokenAmount", estimated_fee_usd = "result.fees.totalFee", actions = "result.steps", action_type = "action", action_to = "tx.to", action_data = "tx.data", action_value = "tx.value" }
+
+[providers.http.requests.prepare]
+method = "POST"
+path = "/quote"
+body_json = { sourceChainId = "${from_chain.numeric_chain_id_str}", destChainId = "${to_chain.numeric_chain_id_str}", sourceToken = "${from_token.address}", destToken = "${to_token.address}", amount = "${amount.raw}", userAddress = "${sender}", targetRecipient = "${recipient}", slippage = 0.005, feeConfig = { feeRecipient = "${developer.evm_recipient}", feePercent = "${commission.percent}" } }
+timeout_ms = 15000
+retry_attempts = 1
+response = { output_amount = "result.details.destTokenAmount", estimated_fee_usd = "result.fees.totalFee", actions = "result.steps", action_type = "action", action_to = "tx.to", action_data = "tx.data", action_value = "tx.value" }
+
+[[providers]]
+id = "rhino-fi"
+name = "Rhino.fi"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:10", "eip155:137", "eip155:324"]
+docs = ["https://docs.rhino.fi/"]
+notes = "Stablecoin onboarding bridge. Secured by GULF_RHINO_API_KEY. Implements the full commit-quote flow: POST /auth/apiKey → quote → commit → depositWithId(address,uint256,uint256) on the source bridge contract. Requires prior ERC-20 approval to the bridge contract."
+fee = { unit = "dynamic", dynamic = true, estimated_bps = 50, settlement_seconds = 300, notes = "Dynamic bridge fee plus target gas." }
+commission = { supported = true, strategy = "referral_key", default_bps = 20, max_bps = 300 }
+
+[[providers]]
+id = "meson"
+name = "Meson"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:10", "eip155:137", "eip155:43114", "eip155:56", "eip155:59144", "eip155:324", "eip155:100"]
+docs = ["https://meson.dev/api", "https://meson.dev/tutorials/api"]
+notes = "Meson cross-chain bridge with native REST API. No auth required. Prepare returns approval (spender 0x25aB3Efd52e6470681CE037cD546Dc60726948D3) plus bridge tx from the swap endpoint. Quote uses the price endpoint for estimation."
+fee = { unit = "bps", dynamic = true, estimated_bps = 3, settlement_seconds = 60, notes = "Meson bridge fee is route-dependent; quote provides live fee via price endpoint." }
+commission = { supported = true, strategy = "none", default_bps = 0, max_bps = 0, notes = "Meson does not natively support affiliate commission." }
+
+[providers.http]
+base_url = "https://relayer.meson.fi"
+default_headers = { Accept = "application/json", "Content-Type" = "application/json" }
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/api/v1/price"
+body_json = { from = "${from_chain.provider.meson}:${from_token.provider.meson}", to = "${to_chain.provider.meson}:${to_token.provider.meson}", amount = "${amount.decimal}", fromAddress = "${sender}", recipient = "${recipient}" }
+timeout_ms = 20000
+retry_attempts = 1
+response = { output_amount = "result.price" }
+
+# -----------------------------------------------------------------------
+# Allbridge: local REST API
+# - allbridge-pool: ALLBRIDGE messenger (pool-based bridge)
+# - allbridge-cctp-oft: CCTP messenger (OFT not available on Base->Arbitrum)
+# The API must already be running at http://127.0.0.1:3000.
+# -----------------------------------------------------------------------
+
+[[providers]]
+id = "allbridge-pool"
+name = "Allbridge Pool (ALLBRIDGE messenger)"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:10", "eip155:56", "eip155:43114"]
+docs = ["https://docs-core.allbridge.io/sdk/get-started", "https://github.com/allbridge-public/allbridge-core-rest-api"]
+notes = "Allbridge pool-based bridge via local REST API (ALLBRIDGE messenger). The API must already be running at the configured URL. Minimum quote ~500k units."
+fee = { unit = "bps", dynamic = true, estimated_bps = 15, settlement_seconds = 60, notes = "LP fee (0.15% source + 0.15% dst) via ALLBRIDGE messenger." }
+commission = { supported = false, strategy = "none", default_bps = 0, max_bps = 0 }
+
+[providers.http]
+base_url = "http://127.0.0.1:3000"
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/bridge/quote"
+query = { amount = "${amount.raw}", sourceToken = "${from_token.provider.allbridge}", destinationToken = "${to_token.provider.allbridge}" }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "options.0.paymentMethods.0.estimatedAmount.min", error = "message", status_id = "options.0.messenger" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/raw/bridge"
+query = { amount = "${amount.raw}", sender = "${sender}", recipient = "${recipient}", sourceToken = "${from_token.provider.allbridge}", destinationToken = "${to_token.provider.allbridge}", messenger = "ALLBRIDGE", feePaymentMethod = "WITH_NATIVE_CURRENCY" }
+timeout_ms = 30000
+retry_attempts = 1
+response = { transaction_to = "to", transaction_data = "data", transaction_value = "value" }
+
+[[providers]]
+id = "allbridge-cctp-oft"
+name = "Allbridge CCTP (CCTP messenger)"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:10", "eip155:56", "eip155:43114"]
+docs = ["https://docs-core.allbridge.io/sdk/get-started", "https://github.com/allbridge-public/allbridge-core-rest-api"]
+notes = "Allbridge CCTP bridge via local REST API. The API must already be running at the configured URL. Uses CCTP messenger when available between supported chains. OFT not available Base->Arbitrum (falls back to CCTP)."
+fee = { unit = "bps", dynamic = true, estimated_bps = 11, settlement_seconds = 1140, notes = "CCTP fee (1 bps) + relayer gas. Estimated ~1140s for CCTP on Base->Arbitrum." }
+commission = { supported = false, strategy = "none", default_bps = 0, max_bps = 0 }
+
+[providers.http]
+base_url = "http://127.0.0.1:3000"
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/bridge/quote"
+query = { amount = "${amount.raw}", sourceToken = "${from_token.provider.allbridge}", destinationToken = "${to_token.provider.allbridge}" }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "options.1.paymentMethods.0.estimatedAmount.min", error = "message", status_id = "options.1.messenger" }
+
+[providers.http.requests.prepare]
+method = "GET"
+path = "/raw/bridge"
+query = { amount = "${amount.raw}", sender = "${sender}", recipient = "${recipient}", sourceToken = "${from_token.provider.allbridge}", destinationToken = "${to_token.provider.allbridge}", messenger = "CCTP", feePaymentMethod = "WITH_NATIVE_CURRENCY" }
+timeout_ms = 30000
+retry_attempts = 1
+response = { transaction_to = "to", transaction_data = "data", transaction_value = "value" }
+
+# -----------------------------------------------------------------------
+# Eco Routes: no-auth intent-based cross-chain quoting
+# Uses SELF_PUBLISH intent execution (typed_signature_request).
+# No API key, no auth headers. dAppID from GULF_ECO_DAPP_ID.
+# -----------------------------------------------------------------------
+
+[[providers]]
+id = "eco-routes"
+name = "Eco Routes"
+enabled = true
+service_type = "direct_bridge"
+supported_chains = ["eip155:42161", "eip155:8453", "eip155:1", "eip155:10"]
+docs = ["https://docs.eco.com/api-reference/introduction"]
+notes = "Eco ERC-7683 intent-based cross-chain quoting. No auth required. Uses SELF_PUBLISH intent execution type (no EVM tx unless calldata returned). dAppID in body for attribution: GULF_ECO_DAPP_ID."
+fee = { unit = "bps", dynamic = true, estimated_bps = 10, settlement_seconds = 120, notes = "Intent relay fees vary by solver, route, and liquidity." }
+commission = { supported = false, strategy = "none", default_bps = 0, max_bps = 0 }
+
+[providers.http]
+base_url = "https://quotes.eco.com"
+
+[providers.http.requests.quote]
+method = "POST"
+path = "/api/v3/quotes/exactIn"
+body_json = { dAppID = "${env.GULF_ECO_DAPP_ID}", intentExecutionTypes = ["SELF_PUBLISH"], quoteRequest = { sourceChainID = "${from_chain.numeric_chain_id}", destinationChainID = "${to_chain.numeric_chain_id}", sourceToken = "${from_token.address}", destinationToken = "${to_token.address}", sourceAmount = "${amount.raw}", funder = "${sender}", recipient = "${recipient}", refundRecipient = "${sender}" } }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "data.0.quoteData.quoteResponse.destinationAmount", error = "message", status_id = "data.0.quoteID" }
+
+[providers.http.requests.prepare]
+method = "POST"
+path = "/api/v3/quotes/exactIn"
+body_json = { dAppID = "${env.GULF_ECO_DAPP_ID}", intentExecutionTypes = ["SELF_PUBLISH"], quoteRequest = { sourceChainID = "${from_chain.numeric_chain_id}", destinationChainID = "${to_chain.numeric_chain_id}", sourceToken = "${from_token.address}", destinationToken = "${to_token.address}", sourceAmount = "${amount.raw}", funder = "${sender}", recipient = "${recipient}", refundRecipient = "${sender}" } }
+timeout_ms = 30000
+retry_attempts = 1
+response = { output_amount = "data.0.quoteData.quoteResponse.destinationAmount", intent_status_url = "data.0.receiveSignedIntentUrl", solver_id = "data.0.solverID", status_id = "data.0.quoteID" }

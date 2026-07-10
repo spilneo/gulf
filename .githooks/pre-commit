@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -eu
+
+hook_dir=$(CDPATH= cd "$(dirname "$0")" && pwd)
+repo_root=$(git -C "$hook_dir" rev-parse --show-toplevel)
+cd "$repo_root"
+
+printf '%s\n' 'pre-commit: cargo fmt'
+cargo fmt --all --check
+
+printf '%s\n' 'pre-commit: cargo clippy'
+cargo clippy --all-targets --all-features -- -D warnings
+
+printf '%s\n' 'pre-commit: cargo test'
+cargo test
+
+printf '%s\n' 'pre-commit: Python tests'
+python3 -m unittest discover -s scripts/tests -p 'test_*.py'
+
+printf '%s\n' 'pre-commit: all checks passed'

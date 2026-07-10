@@ -1,0 +1,8 @@
+:root { --vp-c-brand-1: #08747f; --vp-c-brand-2: #0a5964; --vp-c-brand-3: #064650; --vp-home-hero-name-color: #08747f; --vp-home-hero-image-background-image: linear-gradient(135deg, #7ee7dd 0%, #d2f1d6 100%); }
+.VPNavBarTitle .title { font-weight: 750; letter-spacing: .01em; }
+.VPHomeHero .name { letter-spacing: -.04em; }
+.VPDoc a { text-underline-offset: .16em; }
+.VPDoc div[class*='language-'] { border-radius: 10px; }
+.VPFeature { border-color: var(--vp-c-divider); }
+@media (max-width: 640px) { .VPHomeHero .container { padding-inline: 24px; } .VPDoc .container { padding-inline: 20px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }

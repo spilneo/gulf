@@ -1,0 +1,304 @@
+[e2e]
+
+[[e2e.quote_probes]]
+name = "circle-cctp-standard-base-usdc-to-arbitrum-usdc"
+expected_provider = "circle-cctp-standard"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+
+[[e2e.quote_probes]]
+name = "circle-cctp-fast-base-usdc-to-arbitrum-usdc"
+expected_provider = "circle-cctp-fast-v2"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+
+[[e2e.quote_probes]]
+name = "openocean-base-usdc-to-weth"
+expected_provider = "openocean-v4"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "WETH"
+amount = "100000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+
+[[e2e.quote_probes]]
+name = "odos-base-usdc-to-weth"
+expected_provider = "odos"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "WETH"
+amount = "100000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_ODOS_API_KEY"]
+
+[[e2e.quote_probes]]
+name = "socket-base-usdc-to-arbitrum-usdc"
+expected_provider = "socket-v3"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "mayan-base-usdc-to-solana-usdc"
+expected_provider = "mayan-swift-v2"
+from_chain = "eip155:8453"
+to_chain = "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "11111111111111111111111111111111"
+live = true
+env_required = ["GULF_SOLANA_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "across-base-usdc-to-arbitrum-usdc"
+expected_provider = "across-swap-api"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_ACROSS_API_KEY", "GULF_ACROSS_INTEGRATOR_ID", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "debridge-base-usdc-to-arbitrum-usdc"
+expected_provider = "debridge-dln"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "thorchain-ethereum-eth-to-bitcoin-btc"
+expected_provider = "thorchain"
+from_chain = "eip155:1"
+to_chain = "bip122:000000000019d6689c085ae165831e93"
+from_token = "ETH"
+to_token = "BTC"
+amount = "4000000000000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"
+live = true
+
+[[e2e.quote_probes]]
+name = "squid-base-usdc-to-arbitrum-usdc"
+expected_provider = "squid-router"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_SQUID_INTEGRATOR_ID"]
+
+[[e2e.quote_probes]]
+name = "rango-base-usdc-to-arbitrum-usdc"
+expected_provider = "rango-main-api"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_RANGO_API_KEY", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "zero-x-base-usdc-to-weth"
+expected_provider = "zero-x-swap-api"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "WETH"
+amount = "100000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_ZEROX_API_KEY", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "symbiosis-base-usdc-to-arbitrum-usdc"
+expected_provider = "symbiosis-api"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+
+[[e2e.quote_probes]]
+name = "lifi-base-usdc-to-arbitrum-usdc"
+expected_provider = "lifi"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_LIFI_API_KEY"]
+
+[[e2e.quote_probes]]
+name = "velora-base-usdc-to-weth"
+expected_provider = "velora-market"
+from_chain = "eip155:8453"
+to_chain = "eip155:8453"
+from_token = "USDC"
+to_token = "WETH"
+amount = "100000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+
+[[e2e.quote_probes]]
+name = "changenow-ethereum-eth-to-bitcoin-btc"
+expected_provider = "changenow"
+from_chain = "eip155:1"
+to_chain = "bip122:000000000019d6689c085ae165831e93"
+from_token = "ETH"
+to_token = "BTC"
+amount = "4000000000000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"
+live = true
+env_required = ["GULF_CHANGENOW_API_KEY", "GULF_CHANGENOW_ENABLED"]
+
+[[e2e.quote_probes]]
+name = "rubic-base-usdc-to-arbitrum-usdc"
+expected_provider = "rubic"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_RUBIC_API_KEY", "GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "orbiter-base-usdc-to-arbitrum-usdc"
+expected_provider = "orbiter"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_EVM_FEE_RECIPIENT"]
+
+[[e2e.quote_probes]]
+name = "allbridge-pool-base-usdc-to-arbitrum-usdc"
+expected_provider = "allbridge-pool"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+
+[[e2e.quote_probes]]
+name = "allbridge-cctp-base-usdc-to-arbitrum-usdc"
+expected_provider = "allbridge-cctp-oft"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+
+[[e2e.quote_probes]]
+name = "eco-base-usdc-to-arbitrum-usdc"
+expected_provider = "eco-routes"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_ECO_DAPP_ID"]
+
+[[e2e.prepare_probes]]
+name = "chainflip-ethereum-usdc-to-bitcoin-btc"
+expected_provider = "chainflip-broker"
+from_chain = "eip155:1"
+to_chain = "bip122:000000000019d6689c085ae165831e93"
+from_token = "USDC"
+to_token = "BTC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"
+live = true
+env_required = ["GULF_CHAINFLIP_BROKER_API_URL", "GULF_CHAINFLIP_BROKER_API_KEY"]
+
+[[e2e.prepare_probes]]
+name = "rhino-base-usdc-to-arbitrum-usdc"
+expected_provider = "rhino-fi"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true
+env_required = ["GULF_RHINO_API_KEY"]
+
+[[e2e.prepare_probes]]
+name = "meson-base-usdc-to-arbitrum-usdc"
+expected_provider = "meson"
+from_chain = "eip155:8453"
+to_chain = "eip155:42161"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+recipient = "0x54fed20dB3d578c6C76868d6da380c92d6448993"
+live = true

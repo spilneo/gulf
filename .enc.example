@@ -1,0 +1,81 @@
+# =============================================================================
+# Gulf encrypted secret store template — provides every key used by the
+# config and e2e harness. Grouping mirrors .env.example.
+# =============================================================================
+
+# ---- Runtime configuration ----
+GULF_CONFIG=./config/gulf.toml
+
+# ---- CLI-only EVM signing key (SECRET: never send to the Gulf HTTP API) ----
+GULF_EVM_PRIVATE_KEY=
+
+# ---- Fee recipients (NON-SECRET: on-chain addresses) ----
+# E2E-specific fields: GULF_E2E_PRIVATE_KEY, GULF_E2E_EVM_FEE_RECIPIENT
+# are consumed only by the testnet submit harness.
+GULF_EVM_FEE_RECIPIENT=
+GULF_SOLANA_FEE_RECIPIENT=
+GULF_BITCOIN_FEE_RECIPIENT=
+GULF_THORNAME_FEE_RECIPIENT=
+GULF_E2E_PRIVATE_KEY=
+GULF_E2E_EVM_FEE_RECIPIENT=
+
+# ---- Chain RPC overrides (NON-SECRET) ----
+GULF_ETHEREUM_RPC_URL=
+GULF_BASE_RPC_URL=
+GULF_ARBITRUM_RPC_URL=
+GULF_AVALANCHE_RPC_URL=
+GULF_OPTIMISM_RPC_URL=
+GULF_POLYGON_RPC_URL=
+GULF_BNB_RPC_URL=
+GULF_LINEA_RPC_URL=
+GULF_GNOSIS_RPC_URL=
+GULF_ZKSYNC_RPC_URL=
+GULF_UNICHAIN_RPC_URL=
+GULF_WORLDCHAIN_RPC_URL=
+GULF_INK_RPC_URL=
+GULF_MANTLE_RPC_URL=
+GULF_CELO_RPC_URL=
+GULF_SONIC_RPC_URL=
+GULF_SOLANA_RPC_URL=
+GULF_TRON_RPC_URL=
+GULF_BITCOIN_RPC_URL=
+GULF_SUI_RPC_URL=
+GULF_APTOS_RPC_URL=
+GULF_COSMOS_RPC_URL=
+GULF_OSMOSIS_RPC_URL=
+GULF_NEAR_RPC_URL=
+GULF_STARKNET_RPC_URL=
+GULF_STELLAR_RPC_URL=
+GULF_LITECOIN_RPC_URL=
+GULF_THORCHAIN_RPC_URL=
+GULF_POLKADOT_RPC_URL=
+
+# ---- Provider API keys and integrator IDs (SECRET / MANAGED) ----
+# All canonical env names use the GULF_ prefix. No unprefixed aliases.
+GULF_ZEROX_API_KEY=
+GULF_ACROSS_API_KEY=
+GULF_ACROSS_INTEGRATOR_ID=
+GULF_LIFI_API_KEY=
+GULF_ODOS_API_KEY=
+GULF_SOCKET_API_KEY=
+GULF_SOCKET_AFFILIATE_ID=
+GULF_ORBITER_API_KEY=
+GULF_RUBIC_API_KEY=
+GULF_SQUID_INTEGRATOR_ID=
+GULF_RANGO_API_KEY=
+GULF_MAYAN_API_KEY=
+GULF_CHANGENOW_API_KEY=
+GULF_CHAINFLIP_BROKER_API_URL=
+GULF_CHAINFLIP_BROKER_API_KEY=
+GULF_RHINO_API_KEY=
+
+# ---- Feature flags (NON-SECRET) ----
+GULF_CHANGENOW_ENABLED=
+
+# ---- Infrastructure endpoints (NON-SECRET) ----
+# Allbridge Core REST API must already be running at the configured local URL
+# (http://127.0.0.1:3000 by default; no auth).
+GULF_ECO_DAPP_ID=gulf
+GULF_CIRCLE_IRIS_API_URL=https://iris-api.circle.com
+GULF_CIRCLE_IRIS_SANDBOX_API_URL=https://iris-api-sandbox.circle.com
+GULF_CIRCLE_API_KEY=

@@ -1,0 +1,24 @@
+[e2e]
+
+[[e2e.quote_probes]]
+name = "quote-fixture"
+expected_provider = "fixture-provider"
+from_chain = "eip155:1"
+to_chain = "eip155:10"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x0000000000000000000000000000000000000001"
+live = true
+env_required = ["PROBE_FIXTURE_KEY"]
+
+[[e2e.prepare_probes]]
+name = "prepare-fixture"
+expected_provider = "fixture-provider"
+from_chain = "eip155:1"
+to_chain = "eip155:10"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0x0000000000000000000000000000000000000001"
+recipient = "0x0000000000000000000000000000000000000002"

@@ -1,0 +1,144 @@
+[project]
+name = "gulf-e2e"
+rust_version = "1.96"
+edition = "2024"
+
+[developer]
+default_commission_bps = 0
+
+[developer.recipients]
+evm = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+
+[safety]
+max_commission_bps = 0
+require_live_quote_for_swap = true
+
+[routing]
+sort = ["total_configured_bps", "settlement_seconds", "provider_name"]
+require_chain_registry_match = true
+require_token_registry_match = false
+
+[server]
+default_listen = "127.0.0.1:18080"
+
+[e2e]
+rpc_probes = [
+  { chain = "eip155:11155111", expected_chain_id = "0xaa36a7" },
+  { chain = "eip155:84532", expected_chain_id = "0x14a34" },
+  { chain = "eip155:11142220", expected_chain_id = "0xaa044c" },
+]
+
+[[e2e.quote_probes]]
+name = "circle-cctp-sandbox-fee-sepolia-to-base-sepolia"
+expected_provider = "circle-cctp-sandbox-fees"
+from_chain = "eip155:11155111"
+to_chain = "eip155:84532"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[e2e.prepare_probes]]
+name = "circle-cctp-sandbox-prepare-sepolia-to-base-sepolia"
+expected_provider = "circle-cctp-sandbox-fees"
+from_chain = "eip155:11155111"
+to_chain = "eip155:84532"
+from_token = "USDC"
+to_token = "USDC"
+amount = "1000000"
+sender = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+live = true
+
+[[chains]]
+caip2_id = "eip155:11155111"
+display_name = "Ethereum Sepolia"
+vm = "evm"
+aliases = ["sepolia", "Ethereum Sepolia", "11155111"]
+numeric_chain_id = 11155111
+native_symbol = "ETH"
+provider_references = { circle = "0", circle_token_messenger_v2 = "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA", circle_message_transmitter_v2 = "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275" }
+explorer_url = "https://sepolia.etherscan.io"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_SEPOLIA_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://ethereum-sepolia-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:84532"
+display_name = "Base Sepolia"
+vm = "evm"
+aliases = ["base-sepolia", "Base Sepolia", "84532"]
+numeric_chain_id = 84532
+native_symbol = "ETH"
+provider_references = { circle = "6", circle_token_messenger_v2 = "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA", circle_message_transmitter_v2 = "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275" }
+explorer_url = "https://sepolia.basescan.org"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_BASE_SEPOLIA_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "publicnode", url = "https://base-sepolia-rpc.publicnode.com", priority = 10, timeout_ms = 5000 },
+  { name = "official", url = "https://sepolia.base.org", priority = 20, timeout_ms = 5000 },
+]
+
+[[chains]]
+caip2_id = "eip155:11142220"
+display_name = "Celo Sepolia"
+vm = "evm"
+aliases = ["celo-sepolia", "Celo Sepolia", "11142220"]
+numeric_chain_id = 11142220
+native_symbol = "CELO"
+provider_references = {}
+explorer_url = "https://celo-sepolia.blockscout.com"
+rpc_endpoints = [
+  { name = "env-primary", url_env = "GULF_CELO_SEPOLIA_RPC_URL", priority = 0, timeout_ms = 4000 },
+  { name = "forno", url = "https://forno.celo-sepolia.celo-testnet.org", priority = 10, timeout_ms = 5000 },
+  { name = "drpc", url = "https://celo-sepolia.drpc.org", priority = 20, timeout_ms = 5000 },
+]
+
+[[tokens]]
+id = "sepolia-usdc"
+chain_caip2_id = "eip155:11155111"
+symbol = "USDC"
+decimals = 6
+address = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"
+aliases = []
+provider_symbols = {}
+
+[[tokens]]
+id = "base-sepolia-usdc"
+chain_caip2_id = "eip155:84532"
+symbol = "USDC"
+decimals = 6
+address = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+aliases = []
+provider_symbols = {}
+
+[[tokens]]
+id = "celo-sepolia-usdc"
+chain_caip2_id = "eip155:11142220"
+symbol = "USDC"
+decimals = 6
+address = "0x01C5C0122039549AD1493B8220cABEdD739BC44E"
+aliases = []
+provider_symbols = {}
+
+[[providers]]
+id = "circle-cctp-sandbox-fees"
+name = "Circle CCTP Sandbox Fees"
+enabled = true
+service_type = "contract_only"
+supported_chains = ["eip155:11155111", "eip155:84532"]
+docs = ["https://developers.circle.com/cctp/howtos/get-transfer-fee", "https://developers.circle.com/cctp/concepts/supported-chains-and-domains", "https://developers.circle.com/cctp/concepts/forwarding-service"]
+notes = "No-signature e2e probe for Circle sandbox fee quote from Ethereum Sepolia domain 0 to Base Sepolia domain 6. Uses depositForBurnWithHook (CCTP V2 Forwarding Service) so destination Base Sepolia gas is not required."
+fee = { unit = "bps", dynamic = true, estimated_bps = 1, settlement_seconds = 20, notes = "Sandbox returns route fee rows by finality threshold." }
+commission = { supported = false, strategy = "none", default_bps = 0, max_bps = 0 }
+
+[providers.http]
+base_url = "https://iris-api-sandbox.circle.com"
+default_headers = { Accept = "application/json" }
+
+[providers.http.requests.quote]
+method = "GET"
+path = "/v2/burn/USDC/fees/${from_chain.provider.circle}/${to_chain.provider.circle}?forward=true"
+timeout_ms = 10000
+retry_attempts = 2
+response = { estimated_fee_bps = "0.minimumFee" }

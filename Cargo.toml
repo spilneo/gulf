@@ -1,0 +1,60 @@
+[package]
+name = "gulf"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.96"
+description = "Config-driven bridge and swap routing CLI/API for cross-chain token transfers."
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/spilneo/gulf"
+homepage = "https://github.com/spilneo/gulf"
+documentation = "https://spilneo.github.io/gulf/"
+readme = "README.md"
+keywords = ["bridge", "swap", "cross-chain", "routing", "cli"]
+categories = ["cryptography::cryptocurrencies", "command-line-utilities", "web-programming::http-client"]
+include = [
+    "/src/",
+    "/config/",
+    "/scripts/*.py",
+    "/scripts/tests/*.py",
+    "/scripts/tests/fixtures/",
+    "/Cargo.toml",
+    "/Cargo.lock",
+    "/README.md",
+    "/rust-toolchain.toml",
+    "/.gitignore",
+    "/Dockerfile",
+    "/.dockerignore",
+    "/docs/package.json",
+    "/docs/package-lock.json",
+    "/docs/index.md",
+    "/docs/contributing.md",
+    "/docs/.vitepress/config.mjs",
+    "/docs/.vitepress/theme/index.mjs",
+    "/docs/.vitepress/theme/custom.css",
+    "/docs/guide/",
+    "/docs/concepts/",
+    "/docs/reference/",
+    "/docs/operations/",
+]
+
+[[bin]]
+name = "gulf"
+path = "src/main.rs"
+
+[dependencies]
+alloy = { version = "2", features = ["full"] }
+anyhow = "1"
+axum = "0.8"
+clap = { version = "4", features = ["derive", "env"] }
+reqwest = { version = "0.13", features = ["form", "json", "query"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal"] }
+toml = "1.1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+url = "2"
+
+[dev-dependencies]
+insta = { version = "1", features = ["json"] }
+tower = "0.5"

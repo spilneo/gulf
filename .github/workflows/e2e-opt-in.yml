@@ -1,0 +1,44 @@
+name: E2E opt-in probes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  opt-in-probes:
+    name: Opt-in provider probes
+    runs-on: ubuntu-latest
+    environment: e2e-opt-in
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --release --bin gulf
+      - name: Run opt-in e2e probes
+        env:
+          GULF_E2E_EVM_FEE_RECIPIENT: ${{ secrets.GULF_E2E_EVM_FEE_RECIPIENT }}
+          GULF_EVM_FEE_RECIPIENT: ${{ secrets.GULF_E2E_EVM_FEE_RECIPIENT }}
+          GULF_ACROSS_API_KEY: ${{ secrets.GULF_ACROSS_API_KEY }}
+          GULF_ACROSS_INTEGRATOR_ID: ${{ secrets.GULF_ACROSS_INTEGRATOR_ID }}
+          GULF_ZEROX_API_KEY: ${{ secrets.GULF_ZEROX_API_KEY }}
+          GULF_LIFI_API_KEY: ${{ secrets.GULF_LIFI_API_KEY }}
+          GULF_ODOS_API_KEY: ${{ secrets.GULF_ODOS_API_KEY }}
+          GULF_SOCKET_API_KEY: ${{ secrets.GULF_SOCKET_API_KEY }}
+          GULF_SOCKET_AFFILIATE_ID: ${{ secrets.GULF_SOCKET_AFFILIATE_ID }}
+          GULF_ORBITER_API_KEY: ${{ secrets.GULF_ORBITER_API_KEY }}
+          GULF_RUBIC_API_KEY: ${{ secrets.GULF_RUBIC_API_KEY }}
+          GULF_SQUID_INTEGRATOR_ID: ${{ secrets.GULF_SQUID_INTEGRATOR_ID }}
+          GULF_RANGO_API_KEY: ${{ secrets.GULF_RANGO_API_KEY }}
+          GULF_MAYAN_API_KEY: ${{ secrets.GULF_MAYAN_API_KEY }}
+          GULF_CHAINFLIP_BROKER_API_URL: ${{ secrets.GULF_CHAINFLIP_BROKER_API_URL }}
+          GULF_CHAINFLIP_BROKER_API_KEY: ${{ secrets.GULF_CHAINFLIP_BROKER_API_KEY }}
+          GULF_CHANGENOW_API_KEY: ${{ secrets.GULF_CHANGENOW_API_KEY }}
+          GULF_CHANGENOW_ENABLED: ${{ secrets.GULF_CHANGENOW_ENABLED }}
+          GULF_ECO_DAPP_ID: ${{ secrets.GULF_ECO_DAPP_ID }}
+          GULF_RHINO_API_KEY: ${{ secrets.GULF_RHINO_API_KEY }}
+          GULF_SOLANA_FEE_RECIPIENT: ${{ secrets.GULF_SOLANA_FEE_RECIPIENT }}
+          GULF_RUN_OPT_IN_E2E: "true"
+        run: |
+           python3 scripts/e2e_probe.py \
+             config/gulf.toml \
+             --probes config/e2e/live-probes.toml \
+             --gulf ./target/release/gulf \
+             --timeout 60

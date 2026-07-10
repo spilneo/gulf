@@ -1,0 +1,66 @@
+# Version control
+.git
+.github
+
+# Build artifacts
+target
+**/target/
+
+# Node modules and docs build output
+node_modules
+**/node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+
+# Secrets — never bake into an image
+.env
+.env.*
+!.env.example
+.enc
+.enc.*
+!.enc.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Ledger state and local test data
+ledger/
+**/ledger/
+
+# Cache and temporary files
+.cache
+**/.cache/
+__pycache__/
+*.py[cod]
+*.log
+*.rdb
+*.dump
+**/*.rs.bk
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python virtual environments
+.venv/
+venv/
+*.egg-info/
+
+# Docker itself
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# OpenCode workspace
+.opencode/
+
+# Misc
+*.zip
+*.tar.gz
+*.tgz
+prompt.md

@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_VERSION: "1.96"
+
+jobs:
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: rustup component add rustfmt --toolchain "$RUST_VERSION"
+      - run: cargo fmt --all --check
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo clippy --all-targets -- -D warnings
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo test
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_*.py'
+
+  config-check:
+    name: Config validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --release --bin gulf
+      - run: ./target/release/gulf --config config/gulf.toml check
+      - run: ./target/release/gulf --config config/gulf.toml providers --json
+      - run: ./target/release/gulf --config config/gulf.toml chains --json
+      - run: ./target/release/gulf --config config/gulf.toml tokens --json
+
+  public-testnet-probes:
+    name: Public testnet probes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --release --bin gulf
+      - run: python3 scripts/e2e_probe.py config/e2e/testnet.toml --gulf ./target/release/gulf --report e2e-cli-report.json
+
+  docker-build:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: false
+          load: true
+          tags: gulf:local
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - run: docker run --rm gulf:local --help
+      - run: docker run --rm gulf:local --config /etc/gulf/gulf.toml check
+      - run: docker run --detach --name gulf-api --publish 127.0.0.1:18080:8080 --volume "$PWD/config/e2e/testnet.toml:/etc/gulf/gulf.toml:ro" gulf:local
+      - run: sleep 3
+      - run: python3 scripts/e2e_api_probe.py http://127.0.0.1:18080 config/e2e/testnet.toml --report e2e-api-report.json
+      - if: always()
+        run: |
+          docker logs gulf-api || true
+          docker rm --force gulf-api || true
